@@ -16,6 +16,7 @@ Modules included:
   loads the SMPL model from a given file location (i.e. a .pkl file location),
   or a dictionary object.
 '''
+# import cPickle as pickle
 import pickle
 import numpy as np
 import chumpy as ch

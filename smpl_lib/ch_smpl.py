@@ -3,11 +3,11 @@
 
 import numpy as np
 import chumpy as ch
-import pickle as pkl
+import cPickle as pkl
 import scipy.sparse as sp
 from chumpy.ch import Ch
-from .posemapper import posemap, Rodrigues
-from .serialization import backwards_compatibility_replacements
+from posemapper import posemap, Rodrigues
+from serialization import backwards_compatibility_replacements
 
 from lib.ch import sp_dot
 
@@ -25,7 +25,7 @@ class Smpl(Ch):
     def on_changed(self, which):
         if 'model' in which:
             if not isinstance(self.model, dict):
-                dd = pkl.load(open(self.model, 'rb'), encoding='latin1')
+                dd = pkl.load(open(self.model))
             else:
                 dd = self.model
 
@@ -129,15 +129,13 @@ class Smpl(Ch):
 if __name__ == '__main__':
     from utils.smpl_paths import SmplPaths
 
-    dp = SmplPaths(gender='male')
+    dp = SmplPaths(gender='neutral')
 
     smpl = Smpl(dp.get_smpl_file())
 
     from psbody.mesh.meshviewer import MeshViewer
     from psbody.mesh import Mesh
-    import IPython
-    IPython.embed()
-    #mv = MeshViewer()
-    #mv.set_static_meshes([Mesh(smpl.r, smpl.f)])
+    mv = MeshViewer()
+    mv.set_static_meshes([Mesh(smpl.r, smpl.f)])
 
     raw_input("Press Enter to continue...")
