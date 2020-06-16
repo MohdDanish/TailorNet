@@ -3,8 +3,11 @@ Official repository of "TailorNet: Predicting Clothing in 3D as a Function of Hu
 [[arxiv](https://arxiv.org/abs/2003.04583)][[project website](https://virtualhumans.mpi-inf.mpg.de/tailornet/)][[Youtube](https://www.youtube.com/watch?v=F0O21a_fsBQ)]
 
 ## Requirements
-Python 3  
-Pytorch
+python3  
+pytorch  
+chumpy  
+opencv-python  
+cython  
 
 ## SMPL model
 1. Register and download SMPL models [here](https://smpl.is.tue.mpg.de/en)  
@@ -12,11 +15,30 @@ Pytorch
 3. Run `smpl_lib/convert_smpl_models.py`  
 
 ## Data preparation
-1. Download from the following URLs   
-[t-shirt_female](https://datasets.d2.mpi-inf.mpg.de/tailornet/t-shirt_female.zip)  
-[t-shirt_male](https://datasets.d2.mpi-inf.mpg.de/tailornet/t-shirt_male.zip)  
-2. Specify the variable `DATA_DIR` in `global_var.py`  
-3. Unzip downloaded files to `DATA_DIR`  
+1. Download meta data of the dataset  
+[dataset_meta](https://datasets.d2.mpi-inf.mpg.de/tailornet/dataset_meta.zip)
+2. Download one or more sub-dataset   
+[t-shirt_female](https://datasets.d2.mpi-inf.mpg.de/tailornet/t-shirt_female.zip)\(6.6G\)  
+[t-shirt_male](https://datasets.d2.mpi-inf.mpg.de/tailornet/t-shirt_male.zip)\(6.9G\)  
+[t-shirt_female_sample](https://datasets.d2.mpi-inf.mpg.de/tailornet/t-shirt_female_sample.zip)\(19M\)
+3. Specify the variable `DATA_DIR` in `global_var.py`  
+4. Unzip all downloaded files to `DATA_DIR`  
+5. The dataset structure looks like this:
+```
+DATA_DIR
+----smpl
+----{garment_class}_{gender} (e.g., t-shirt_female)
+--------pose
+------------{shape}_{style} (e.g., 000_023)
+--------shape
+--------style
+--------style_shape
+--------avail.txt
+--------pivots.txt
+----apose.pkl
+----garment_class_info.pkl
+----split_static_pose_shape.npz
+```
   
 
 ## Visualize the dataset
